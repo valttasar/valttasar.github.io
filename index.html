@@ -45,19 +45,10 @@
       margin-bottom: 1.5rem;
       transition: opacity 0.6s;
       opacity: 0;
-      animation: fadeIn 0.5s ease 0.9s forwards;
+      animation: fadeIn 0.5s ease 1.8s forwards;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes popIn {
-      0%   { opacity: 0; transform: scale(0.3) rotate(-10deg); }
-      60%  { opacity: 1; transform: scale(1.12) rotate(3deg); }
-      80%  { transform: scale(0.95) rotate(-1deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
 
     .bouquet-wrap {
       cursor: pointer;
@@ -65,18 +56,36 @@
       z-index: 2;
       transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
       -webkit-tap-highlight-color: transparent;
-      opacity: 0;
-      animation: popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s forwards;
     }
     .bouquet-wrap:hover { transform: scale(1.06) rotate(-1deg); }
     .bouquet-wrap:active { transform: scale(0.96); }
 
     .bouquet-svg {
-      width: 210px;
-      height: 240px;
+      width: 220px;
+      height: 280px;
       display: block;
       filter: drop-shadow(0 8px 18px rgba(180,100,120,0.18));
     }
+
+    @keyframes popUp {
+      0%   { opacity: 0; transform: translateY(12px) scale(0.5); }
+      60%  { opacity: 1; transform: translateY(-4px) scale(1.08); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes popUpFlower {
+      0%   { opacity: 0; transform: translateY(18px) scale(0.3); }
+      65%  { opacity: 1; transform: translateY(-5px) scale(1.1); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .anim-wrap { opacity: 0; }
+    .anim-stems  { animation: popUp 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.1s forwards; }
+    .anim-leaves { animation: popUp 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.25s forwards; }
+    .anim-wrap-body { animation: popUp 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.35s forwards; }
+    .anim-sf-left  { animation: popUpFlower 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.55s forwards; }
+    .anim-sf-right { animation: popUpFlower 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.7s forwards; }
+    .anim-hyacinth { animation: popUpFlower 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.88s forwards; }
 
     .letter-wrap {
       position: relative;
@@ -161,96 +170,121 @@
   <div class="petal-canvas" id="petals"></div>
 
   <div class="bouquet-wrap" id="bouquet" onclick="toggleLetter()" role="button" aria-label="Open love letter">
-    <svg class="bouquet-svg" viewBox="0 0 210 240" xmlns="http://www.w3.org/2000/svg">
+    <svg class="bouquet-svg" viewBox="0 0 210 280" xmlns="http://www.w3.org/2000/svg">
 
-      <line x1="105" y1="210" x2="62" y2="148" stroke="#6a9a4a" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="105" y1="210" x2="105" y2="140" stroke="#6a9a4a" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="105" y1="210" x2="148" y2="148" stroke="#6a9a4a" stroke-width="2.5" stroke-linecap="round"/>
-
-      <ellipse cx="83" cy="178" rx="13" ry="6" fill="#7ec850" transform="rotate(-35 83 178)"/>
-      <ellipse cx="127" cy="176" rx="13" ry="6" fill="#7ec850" transform="rotate(35 127 176)"/>
-      <ellipse cx="105" cy="172" rx="10" ry="5" fill="#7ec850" transform="rotate(-10 105 172)"/>
-
-      <path d="M78 207 Q105 218 132 207 L128 226 Q105 233 82 226 Z" fill="#f4a7b9" opacity="0.92"/>
-      <line x1="105" y1="217" x2="105" y2="231" stroke="#e07090" stroke-width="1.5" stroke-linecap="round"/>
-
-      <g id="sf-left" transform="translate(62,130)">
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(0)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(45)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(90)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(135)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(225)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(270)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(315)"/>
-        <circle cx="0" cy="0" r="11" fill="#5c3317"/>
-        <circle cx="-3" cy="-3" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="2" cy="-4" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="4" cy="1" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="-1" cy="3" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="3" cy="4" r="1.5" fill="#3d2008" opacity="0.5"/>
-        <circle cx="-4" cy="2" r="1.2" fill="#3d2008" opacity="0.5"/>
+      <g class="anim-wrap anim-stems">
+        <line x1="105" y1="248" x2="85"  y2="210" stroke="#6a9a4a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="105" y1="248" x2="98"  y2="205" stroke="#6a9a4a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="105" y1="248" x2="105" y2="200" stroke="#6a9a4a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="105" y1="248" x2="112" y2="205" stroke="#6a9a4a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="105" y1="248" x2="122" y2="210" stroke="#6a9a4a" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="96"  y1="262" x2="91"  y2="278" stroke="#6a9a4a" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="105" y1="265" x2="105" y2="280" stroke="#6a9a4a" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="114" y1="262" x2="119" y2="278" stroke="#6a9a4a" stroke-width="1.8" stroke-linecap="round"/>
       </g>
 
-      <g id="sf-right" transform="translate(148,130)">
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(0)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(45)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(90)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(135)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(225)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(270)"/>
-        <ellipse cx="0" cy="-13" rx="6" ry="11" fill="#f5c518" transform="rotate(315)"/>
-        <circle cx="0" cy="0" r="11" fill="#5c3317"/>
-        <circle cx="-3" cy="-3" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="2" cy="-4" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="4" cy="1" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="-1" cy="3" r="1.5" fill="#3d2008" opacity="0.7"/>
-        <circle cx="3" cy="4" r="1.5" fill="#3d2008" opacity="0.5"/>
-        <circle cx="-4" cy="2" r="1.2" fill="#3d2008" opacity="0.5"/>
+      <g class="anim-wrap anim-leaves">
+        <ellipse cx="88"  cy="188" rx="12" ry="5.5" fill="#7ec850" transform="rotate(-35 88 188)"/>
+        <ellipse cx="122" cy="186" rx="12" ry="5.5" fill="#7ec850" transform="rotate(35 122 186)"/>
+        <ellipse cx="105" cy="182" rx="9"  ry="4.5" fill="#7ec850" transform="rotate(-8 105 182)"/>
+        <ellipse cx="76"  cy="175" rx="10" ry="4.5" fill="#5a8a3a" transform="rotate(-50 76 175)"/>
+        <ellipse cx="134" cy="173" rx="10" ry="4.5" fill="#5a8a3a" transform="rotate(50 134 173)"/>
       </g>
 
-      <g id="hyacinth" transform="translate(105,60)">
+      <g class="anim-wrap anim-wrap-body">
+        <path d="M68 210 Q105 222 142 210 L148 255 Q130 268 105 272 Q80 268 62 255 Z" fill="#e8dcc8"/>
+        <path d="M68 210 Q80 218 105 220 Q130 218 142 210 L148 255 Q130 266 105 270 Q80 266 62 255 Z" fill="#f0e8d5"/>
+        <line x1="105" y1="220" x2="105" y2="270" stroke="#d4c4a8" stroke-width="0.8" stroke-linecap="round" opacity="0.6"/>
+        <line x1="88"  y1="219" x2="83"  y2="268" stroke="#d4c4a8" stroke-width="0.6" opacity="0.4"/>
+        <line x1="122" y1="219" x2="127" y2="268" stroke="#d4c4a8" stroke-width="0.6" opacity="0.4"/>
+
+        <path d="M80 254 Q105 260 130 254" stroke="#d4c4a8" stroke-width="0.8" fill="none" opacity="0.5"/>
+
+        <path d="M90 258 Q105 263 120 258 L122 268 Q105 274 88 268 Z" fill="#d4b896"/>
+
+        <path d="M105 262 C98 256 88 257 86 262 C84 267 90 270 95 267 L105 275 L115 267 C120 270 126 267 124 262 C122 257 112 256 105 262 Z" fill="#e07090"/>
+        <ellipse cx="105" cy="262" rx="4" ry="3" fill="#c05070"/>
+      </g>
+
+      <g class="anim-wrap anim-sf-left" transform="translate(62,148)">
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(315)"/>
+        <circle cx="0" cy="0" r="12" fill="#5c3317"/>
+        <circle cx="-3" cy="-3" r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="2"  cy="-4" r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="4"  cy="1"  r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="-1" cy="3"  r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="3"  cy="4"  r="1.5" fill="#3d2008" opacity="0.5"/>
+        <circle cx="-4" cy="2"  r="1.4" fill="#3d2008" opacity="0.5"/>
+        <circle cx="0"  cy="-1" r="1.4" fill="#3d2008" opacity="0.4"/>
+      </g>
+
+      <g class="anim-wrap anim-sf-right" transform="translate(148,148)">
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-14" rx="6" ry="12" fill="#f5c518" transform="rotate(315)"/>
+        <circle cx="0" cy="0" r="12" fill="#5c3317"/>
+        <circle cx="-3" cy="-3" r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="2"  cy="-4" r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="4"  cy="1"  r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="-1" cy="3"  r="1.8" fill="#3d2008" opacity="0.7"/>
+        <circle cx="3"  cy="4"  r="1.5" fill="#3d2008" opacity="0.5"/>
+        <circle cx="-4" cy="2"  r="1.4" fill="#3d2008" opacity="0.5"/>
+        <circle cx="0"  cy="-1" r="1.4" fill="#3d2008" opacity="0.4"/>
+      </g>
+
+      <g class="anim-wrap anim-hyacinth" transform="translate(105,65)">
         <ellipse cx="0" cy="60" rx="7" ry="22" fill="#8b5cf6" opacity="0.25"/>
 
-        <circle cx="-6" cy="74" r="5" fill="#a78bfa"/>
-        <circle cx="6" cy="74" r="5" fill="#a78bfa"/>
-        <circle cx="0" cy="70" r="5" fill="#c4b5fd"/>
+        <circle cx="-6" cy="74" r="5"   fill="#a78bfa"/>
+        <circle cx="6"  cy="74" r="5"   fill="#a78bfa"/>
+        <circle cx="0"  cy="70" r="5"   fill="#c4b5fd"/>
 
-        <circle cx="-8" cy="62" r="5" fill="#8b5cf6"/>
-        <circle cx="8" cy="62" r="5" fill="#8b5cf6"/>
-        <circle cx="-3" cy="59" r="5" fill="#a78bfa"/>
-        <circle cx="3" cy="59" r="5" fill="#a78bfa"/>
+        <circle cx="-8" cy="62" r="5"   fill="#8b5cf6"/>
+        <circle cx="8"  cy="62" r="5"   fill="#8b5cf6"/>
+        <circle cx="-3" cy="59" r="5"   fill="#a78bfa"/>
+        <circle cx="3"  cy="59" r="5"   fill="#a78bfa"/>
 
-        <circle cx="-9" cy="50" r="5" fill="#7c3aed"/>
-        <circle cx="9" cy="50" r="5" fill="#7c3aed"/>
-        <circle cx="-4" cy="47" r="5" fill="#8b5cf6"/>
-        <circle cx="4" cy="47" r="5" fill="#8b5cf6"/>
-        <circle cx="0" cy="44" r="5" fill="#a78bfa"/>
+        <circle cx="-9" cy="50" r="5"   fill="#7c3aed"/>
+        <circle cx="9"  cy="50" r="5"   fill="#7c3aed"/>
+        <circle cx="-4" cy="47" r="5"   fill="#8b5cf6"/>
+        <circle cx="4"  cy="47" r="5"   fill="#8b5cf6"/>
+        <circle cx="0"  cy="44" r="5"   fill="#a78bfa"/>
 
         <circle cx="-8" cy="37" r="4.5" fill="#6d28d9"/>
-        <circle cx="8" cy="37" r="4.5" fill="#6d28d9"/>
+        <circle cx="8"  cy="37" r="4.5" fill="#6d28d9"/>
         <circle cx="-3" cy="34" r="4.5" fill="#7c3aed"/>
-        <circle cx="3" cy="34" r="4.5" fill="#7c3aed"/>
-        <circle cx="0" cy="31" r="4.5" fill="#8b5cf6"/>
+        <circle cx="3"  cy="34" r="4.5" fill="#7c3aed"/>
+        <circle cx="0"  cy="31" r="4.5" fill="#8b5cf6"/>
 
-        <circle cx="-6" cy="24" r="4" fill="#5b21b6"/>
-        <circle cx="6" cy="24" r="4" fill="#5b21b6"/>
-        <circle cx="-2" cy="21" r="4" fill="#6d28d9"/>
-        <circle cx="2" cy="21" r="4" fill="#6d28d9"/>
-        <circle cx="0" cy="18" r="4" fill="#7c3aed"/>
+        <circle cx="-6" cy="24" r="4"   fill="#5b21b6"/>
+        <circle cx="6"  cy="24" r="4"   fill="#5b21b6"/>
+        <circle cx="-2" cy="21" r="4"   fill="#6d28d9"/>
+        <circle cx="2"  cy="21" r="4"   fill="#6d28d9"/>
+        <circle cx="0"  cy="18" r="4"   fill="#7c3aed"/>
 
         <circle cx="-4" cy="12" r="3.5" fill="#4c1d95"/>
-        <circle cx="4" cy="12" r="3.5" fill="#4c1d95"/>
-        <circle cx="0" cy="9" r="3.5" fill="#5b21b6"/>
+        <circle cx="4"  cy="12" r="3.5" fill="#4c1d95"/>
+        <circle cx="0"  cy="9"  r="3.5" fill="#5b21b6"/>
 
-        <circle cx="-2" cy="4" r="3" fill="#3b0764"/>
-        <circle cx="2" cy="4" r="3" fill="#3b0764"/>
-        <circle cx="0" cy="1" r="3" fill="#4c1d95"/>
+        <circle cx="-2" cy="4"  r="3"   fill="#3b0764"/>
+        <circle cx="2"  cy="4"  r="3"   fill="#3b0764"/>
+        <circle cx="0"  cy="1"  r="3"   fill="#4c1d95"/>
 
-        <ellipse cx="0" cy="80" rx="4" ry="8" fill="#5a8a3a"/>
-        <ellipse cx="-10" cy="72" rx="3.5" ry="9" fill="#6a9a4a" transform="rotate(-20 -10 72)"/>
-        <ellipse cx="10" cy="72" rx="3.5" ry="9" fill="#6a9a4a" transform="rotate(20 10 72)"/>
+        <ellipse cx="0"   cy="80" rx="4"   ry="8"  fill="#5a8a3a"/>
+        <ellipse cx="-10" cy="72" rx="3.5" ry="9"  fill="#6a9a4a" transform="rotate(-20 -10 72)"/>
+        <ellipse cx="10"  cy="72" rx="3.5" ry="9"  fill="#6a9a4a" transform="rotate(20 10 72)"/>
       </g>
 
     </svg>
