@@ -135,6 +135,24 @@
     }
     .close-btn:hover { color: #a07070; }
 
+    .ribbon-wrap {
+      width: 340px;
+      max-width: 92vw;
+      display: flex;
+      justify-content: flex-end;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .ribbon-wrap.open { max-height: 200px; }
+
+    .ribbon-img {
+      width: 80px;
+      height: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
     .petal-canvas {
       position: fixed;
       inset: 0;
@@ -162,11 +180,7 @@
   <div class="petal-canvas" id="petals"></div>
 
   <div class="bouquet-wrap" id="bouquet" onclick="toggleLetter()" role="button" aria-label="Open love letter">
-    <img
-      class="bouquet-img"
-      src="bouquet.png"
-      alt="A beautiful bouquet of flowers"
-    />
+    <img class="bouquet-img" src="assets/bouquet.png" alt="A beautiful bouquet of flowers" />
   </div>
 
   <div class="letter-wrap" id="letter-wrap">
@@ -178,6 +192,10 @@
       <button class="close-btn" onclick="toggleLetter()">close ↑</button>
     </div>
   </div>
+
+  <div class="ribbon-wrap" id="ribbon-wrap">
+    <img class="ribbon-img" src="assets/ribbon.png" alt="ribbon" />
+  </div>
 </div>
 
 <script>
@@ -186,6 +204,7 @@
   function toggleLetter() {
     open = !open;
     document.getElementById('letter-wrap').classList.toggle('open', open);
+    document.getElementById('ribbon-wrap').classList.toggle('open', open);
     document.getElementById('hint').style.opacity = open ? '0' : '1';
     if (open) burstPetals();
   }
