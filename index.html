@@ -52,13 +52,6 @@
       to { opacity: 1; }
     }
 
-    @keyframes clickPop {
-      0%   { transform: scale(1); }
-      35%  { transform: scale(0.88); }
-      70%  { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-
     @keyframes popIn {
       0%   { opacity: 0; transform: scale(0.3) rotate(-10deg); }
       60%  { opacity: 1; transform: scale(1.12) rotate(3deg); }
@@ -66,18 +59,24 @@
       100% { opacity: 1; transform: scale(1) rotate(0deg); }
     }
 
+    @keyframes clickPop {
+      0%   { transform: scale(1); }
+      35%  { transform: scale(0.88); }
+      70%  { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
     .bouquet-wrap {
       cursor: pointer;
       position: relative;
       z-index: 2;
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
       -webkit-tap-highlight-color: transparent;
       opacity: 0;
       animation: popIn 0.7s cubic-bezier(0.34,1.56,0.64,1) 0.2s forwards;
     }
-    .bouquet-wrap:hover { transform: scale(1.06) rotate(-1deg); }
-    .bouquet-wrap:active { transform: scale(0.96); }
-    .bouquet-wrap.clicked { animation: clickPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    .bouquet-wrap.clicked .bouquet-img {
+      animation: clickPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
 
     .bouquet-img {
       width: 340px;
@@ -85,6 +84,7 @@
       object-fit: contain;
       display: block;
       filter: drop-shadow(0 8px 18px rgba(180,100,120,0.18));
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
     }
 
     .letter-wrap {
@@ -188,7 +188,7 @@
   <div class="petal-canvas" id="petals"></div>
 
   <div class="bouquet-wrap" id="bouquet" onclick="toggleLetter()" role="button" aria-label="Open love letter">
-    <img class="bouquet-img" src="assets/bouquet.png" alt="A beautiful bouquet of flowers" />
+    <img class="bouquet-img" id="bouquet-img" src="assets/bouquet.png" alt="A beautiful bouquet of flowers" />
   </div>
 
   <div class="letter-wrap" id="letter-wrap">
@@ -210,15 +210,17 @@
   let open = false;
 
   function toggleLetter() {
-    const bouquet = document.getElementById('bouquet');
-    bouquet.classList.remove('clicked');
-    void bouquet.offsetWidth;
-    bouquet.classList.add('clicked');
     open = !open;
     document.getElementById('letter-wrap').classList.toggle('open', open);
     document.getElementById('ribbon-wrap').classList.toggle('open', open);
     document.getElementById('hint').style.opacity = open ? '0' : '1';
     if (open) burstPetals();
+
+    const bouquet = document.getElementById('bouquet');
+    bouquet.classList.remove('clicked');
+    void bouquet.offsetWidth;
+    bouquet.classList.add('clicked');
+    bouquet.addEventListener('animationend', () => bouquet.classList.remove('clicked'), { once: true });
   }
 
   function burstPetals() {
