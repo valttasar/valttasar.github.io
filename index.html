@@ -48,6 +48,7 @@
       opacity: 0;
       animation: fadeIn 0.5s ease 0.9s forwards;
     }
+    .hint.hidden { opacity: 0 !important; }
 
     @keyframes fadeIn {
       to { opacity: 1; }
@@ -214,7 +215,8 @@
     open = !open;
     document.getElementById('letter-wrap').classList.toggle('open', open);
     document.getElementById('ribbon-wrap').classList.toggle('open', open);
-    document.getElementById('hint').style.opacity = open ? '0' : '1';
+    document.getElementById('hint').classList.toggle('hidden', open);
+
     if (open) burstPetals();
 
     const bouquet = document.getElementById('bouquet');
